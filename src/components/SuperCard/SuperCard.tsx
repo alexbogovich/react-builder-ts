@@ -1,14 +1,10 @@
 import React, { Component } from 'react'
-import { InlineStyleAware } from '../../common/Builder/InlineStyleAware'
+import { InlineStyleAware, ITextAware } from '../../common/Builder'
 import withBuilderExtension from '../HOC/withBuilderExtension'
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@material-ui/core'
 import { TypographyProps } from '@material-ui/core/Typography'
 import { ButtonProps } from '@material-ui/core/Button/Button'
 import { CardMediaProps } from '@material-ui/core/CardMedia/CardMedia'
-
-interface ITextAware {
-    text: string
-}
 
 interface ISuperCard extends InlineStyleAware {
     textContent: Array<ITextAware & TypographyProps & InlineStyleAware>
@@ -23,17 +19,17 @@ class SuperCard extends Component<ISuperCard> {
 
         return (
             <Card style={style}>
-                {img ? <CardMedia {...img}/> : null}
-                <CardContent>
+                {img && <CardMedia {...img}/>}
+                {textContent && <CardContent>
                     {textContent.map(({ text, ...contentProps }) => (
                         <Typography {...contentProps}>{text}</Typography>
                     ))}
-                </CardContent>
-                <CardActions>
+                </CardContent>}
+                {actions && <CardActions>
                     {actions.map(({ text, ...actionProps }) => (
                         <Button {...actionProps}>{text}</Button>
                     ))}
-                </CardActions>
+                </CardActions>}
             </Card>
         )
     }

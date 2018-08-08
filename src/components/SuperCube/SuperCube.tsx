@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import withBuilderExtension from '../HOC/withBuilderExtension'
-import { InlineStyleAware } from '../../common/Builder/InlineStyleAware'
+import { InlineStyleAware } from '../../common/Builder'
 
 class SuperCube extends Component<InlineStyleAware> {
     render() {

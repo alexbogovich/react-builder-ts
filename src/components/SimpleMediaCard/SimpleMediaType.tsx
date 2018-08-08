@@ -1,8 +1,7 @@
 import React from 'react'
 import { Card, CardActions, createStyles, withStyles, Theme, WithStyles, CardContent, CardMedia, Button, Typography } from '@material-ui/core'
-// @ts-ignore
 import withBuilderExtension from '../HOC/withBuilderExtension'
-import { InlineStyleAware } from '../../common/Builder/InlineStyleAware'
+import { InlineStyleAware } from '../../common/Builder'
 
 const styles = ({ palette, spacing }: Theme) => createStyles({
     card: {

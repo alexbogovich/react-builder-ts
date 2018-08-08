@@ -1,6 +1,6 @@
 import { Dialog, DialogTitle, TextField } from '@material-ui/core'
 import React from 'react'
-import { InlineStyleAware } from '../../../common/Builder/InlineStyleAware'
+import { InlineStyleAware } from '../../../common/Builder'
 
 export interface ISimpleDialog<T> {
     onClose: (value?: string) => void,
@@ -66,8 +66,8 @@ class SimpleDialog<T extends InlineStyleAware> extends React.Component<ISimpleDi
             <Dialog onClose={this.closeHandler} aria-labelledby="simple-dialog-title" open={open} {...other}>
                 <DialogTitle id="simple-dialog-title">Awesome builder menu</DialogTitle>
                 <div>
-                    { onStyleChangeHandler ?
-                        <TextField label="CSS JSON" onChange={this.styleInputHandler} multiline fullWidth rows={4} rowsMax={10} value={styleValue}/> : null
+                    { onStyleChangeHandler &&
+                        <TextField label="CSS JSON" onChange={this.styleInputHandler} multiline fullWidth rows={4} rowsMax={10} value={styleValue}/>
                     }
                     <TextField label="PROPS JSON" onChange={this.propsInputHandler} multiline fullWidth rows={20} rowsMax={40} value={this.state.elementProps}/>
                 </div>

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { InlineStyleAware } from '../../common/Builder/InlineStyleAware'
+import { InlineStyleAware } from '../../common/Builder'
 
 export interface IRichTextBox extends InlineStyleAware {
     testBoolean: boolean

@@ -1,6 +1,6 @@
 import React, { CSSProperties, MouseEvent } from 'react'
 import BuilderMenu from '../Builder/BuilderMenu/BuilderMenu'
-import { InlineStyleAware } from '../../common/Builder/InlineStyleAware'
+import { InlineStyleAware } from '../../common/Builder'
 
 interface IWithBuilderExtension extends InlineStyleAware {
     settings?: object
