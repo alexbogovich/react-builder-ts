@@ -7,7 +7,7 @@ interface IWithBuilderExtension extends InlineStyleAware {
     styleConfig?: boolean
 }
 
-interface IWithBuilderExtensionState<T> {
+interface IWithBuilderExtensionState<T extends InlineStyleAware> {
     open: boolean,
     selectedValue?: string,
     overriddenStyle?: CSSProperties
@@ -35,7 +35,7 @@ const withBuilderExtension = <P extends InlineStyleAware>(WrappedComponent: Reac
         onInlineStyleJson = (json: string) => {
             console.log(json)
             try {
-                const parsedStyle = JSON.parse(json) as CSSProperties
+                const parsedStyle: CSSProperties = JSON.parse(json)
                 this.setState({ overriddenStyle: parsedStyle })
             } catch (e) {
                 console.debug(e)
@@ -62,6 +62,7 @@ const withBuilderExtension = <P extends InlineStyleAware>(WrappedComponent: Reac
 
             // noinspection TsLint
             const processedProps = { ...props, style: inlineStyle } as P
+            // TODO: find better approach
             Object.assign(processedProps, overriddenProps)
             Object.assign(processedProps, { children: this.props.children })
             console.log(processedProps)
