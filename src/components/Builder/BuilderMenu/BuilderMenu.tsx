@@ -15,6 +15,12 @@ export interface ISimpleDialogState {
     elementProps: string
 }
 
+const propsToJSONReplacer = (k, v): any => {
+    if (k === 'children') return null
+    if (typeof v === 'function') return v.toString()
+    return v
+}
+
 class SimpleDialog<T extends InlineStyleAware> extends React.Component<ISimpleDialog<T>, ISimpleDialogState> {
 
     state = {
@@ -25,7 +31,7 @@ class SimpleDialog<T extends InlineStyleAware> extends React.Component<ISimpleDi
         console.log(this.props)
         const { buildElementProps } = this.props
         if (buildElementProps) {
-            this.setState({ elementProps: JSON.stringify(buildElementProps, (k, v) => k !== 'children' ? v : null, 2) })
+            this.setState({ elementProps: JSON.stringify(buildElementProps, propsToJSONReplacer, 2) })
         }
     }
 

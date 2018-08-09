@@ -23,6 +23,10 @@ const withBuilderExtension = <P extends InlineStyleAware>(WrappedComponent: Reac
             overriddenStyle: undefined
         }
 
+        componentDidMount() {
+            console.log('wrappedObj:', WrappedComponent)
+        }
+
         handleClickOpen = () => {
             this.setState({ open: true })
         }
@@ -57,18 +61,10 @@ const withBuilderExtension = <P extends InlineStyleAware>(WrappedComponent: Reac
                     ...overriddenStyle
                 }
             }
-
-            console.log(overriddenProps)
-
-            // noinspection TsLint
-            const processedProps = { ...props, style: inlineStyle } as P
-            // TODO: find better approach
-            Object.assign(processedProps, overriddenProps)
-            Object.assign(processedProps, { children: this.props.children })
-            console.log(processedProps)
+            const processedProps = Object.assign({ ...props, style: inlineStyle }, overriddenProps, { children: this.props.children })
             return (
                 <>
-                    <div onClick={this.wrapperHandler}>
+                    <div onDoubleClick={this.wrapperHandler}>
                         <BuilderMenu<P>
                             open={this.state.open}
                             onClose={this.handleClose}
