@@ -1,0 +1,38 @@
+{
+  "type": {
+    "module": "@material-ui/core",
+    "name": "Grid"
+  },
+  "props": {
+    "container": true,
+    "spacing": 24
+  },
+  "children": [
+    {
+      "type": {
+        "module": "SuperCube/SuperCube",
+        "defaultImport": true
+      },
+      "props": {
+        "style": {
+          "backgroundColor": "blue",
+          "width": "60px",
+          "height": "60px"
+        }
+      }
+    },
+    {
+      "type": {
+        "module": "SuperCube/SuperCube",
+        "defaultImport": true
+      },
+      "props": {
+        "style": {
+          "backgroundColor": "red",
+          "width": "100px",
+          "height": "60px"
+        }
+      }
+    }
+  ]
+}
