@@ -169,7 +169,6 @@ const withBuilderExtension = WrappedComponent =>
 
             const innerPropsSub = {
                 ...overriddenProps,
-                ...(overriddenProps && overriddenProps.props || undefined),
                 children
             }
             console.debug('[INNER_SUBJECT_SWITCH$] set', innerPropsSub)
@@ -215,27 +214,25 @@ const withBuilderExtension = WrappedComponent =>
         }
 
         componentDidUpdate(prevProps) {
-            console.debug('[COMPONENT_DID_UPDATE] props', prevProps, this.props)
-            console.debug(
-                '[COMPONENT_DID_UPDATE] overriddenProps',
-                this.state.overriddenProps,
-                this.props
-            )
-            if (
-                !isEqual(prevProps, this.props) &&
-                !isEqual(this.state.overriddenProps, this.props)
-            ) {
+            console.debug('[COMPONENT_DID_UPDATE] props', this.props)
+            console.debug('[COMPONENT_DID_UPDATE] prevProps', prevProps)
+            console.debug('[COMPONENT_DID_UPDATE] state', this.state)
+            if (!isEqual(prevProps, this.props)) {
+                const { settings, subject$, ...props } = this.props
+                const transformedProps = mapObjectToOverriddenProps(props)
+                if (isEqual(this.state.overriddenProps, transformedProps)) return
                 console.debug('[COMPONENT_DID_UPDATE] props dont match')
-                this.emitUpdateIfValueChanged(this.props)
+                this.emitUpdateIfValueChanged(transformedProps)
             }
         }
 
         render() {
             const { overriddenProps, child$ } = this.state
-            console.debug('[RENDER]', overriddenProps, this.props)
+            console.debug('[RENDER] props', this.props)
+            console.debug('[RENDER] overriddenProps', overriddenProps)
             const wrappedComponentProps = {
                 ...overriddenProps,
-                // ...(overriddenProps && overriddenProps.props || undefined),
+                ...(overriddenProps && overriddenProps.props || undefined),
                 children: overriddenProps && objectToReactComponent(overriddenProps.children, child$) || undefined
             }
 
