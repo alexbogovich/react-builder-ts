@@ -16,33 +16,33 @@ const navigationBar = props => {
     <div className={classes.root}>
       <AppBar position="static" color="default">
         <Tabs value={'hello'}>
-            <NavLink to="/BasicTwoCol">
-                <Tab
-                    label="superGridFromJson"
-                />
-            </NavLink>
+          <NavLink to="/BasicTwoCol">
+            <Tab
+              label="superGridFromJson"
+            />
+          </NavLink>
 
           {/*<Tab*/}
-            {/*label="superGridFromJsonWithLazy"*/}
-            {/*component={Link}*/}
-            {/*to="/superGridFromJsonWithLazy"*/}
+          {/*label="superGridFromJsonWithLazy"*/}
+          {/*component={Link}*/}
+          {/*to="/superGridFromJsonWithLazy"*/}
           {/*/>*/}
           {/*<Tab label="Languages List" component={Link} to="/LanguagesList" />*/}
           {/*<Tab label="Basic two col" component={Link} to="/BasicTwoCol" />*/}
           {/*<Tab*/}
-            {/*label="BasicTwoColOriginal"*/}
-            {/*component={Link}*/}
-            {/*to="/BasicTwoColOriginal"*/}
+          {/*label="BasicTwoColOriginal"*/}
+          {/*component={Link}*/}
+          {/*to="/BasicTwoColOriginal"*/}
           {/*/>*/}
           {/*<Tab*/}
-            {/*label="MediaControlCard"*/}
-            {/*component={Link}*/}
-            {/*to="/MediaControlCard"*/}
+          {/*label="MediaControlCard"*/}
+          {/*component={Link}*/}
+          {/*to="/MediaControlCard"*/}
           {/*/>*/}
           {/*<Tab*/}
-            {/*label="RaiseStateSample"*/}
-            {/*component={Link}*/}
-            {/*to="/RaiseStateSample"*/}
+          {/*label="RaiseStateSample"*/}
+          {/*component={Link}*/}
+          {/*to="/RaiseStateSample"*/}
           {/*/>*/}
         </Tabs>
       </AppBar>

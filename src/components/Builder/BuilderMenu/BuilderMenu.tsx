@@ -8,14 +8,15 @@ const propsToJSONReplacer = (k, v) =>
   typeof v === 'function' || k === 'subject$' ? null : v
 
 interface ISimpleDialogProps {
-    onClose: (any?: any) => any
-    onPropsUpdate: (any?: any) => any
-    open: boolean,
-    buildElementProps: any
+  onClose: (any?: any) => any
+  onPropsUpdate: (any?: any) => any
+  open: boolean,
+  buildElementProps: any
 }
+
 interface ISimpleDialogState {
-    elementProps: string
-    subject$: Subject<any>
+  elementProps: string
+  subject$: Subject<any>
 }
 
 class SimpleDialog extends React.PureComponent<ISimpleDialogProps, ISimpleDialogState> {

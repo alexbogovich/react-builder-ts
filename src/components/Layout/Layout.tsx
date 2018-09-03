@@ -9,7 +9,7 @@ export default () => (
       {/*<Route path="/superGridFromJson" render={gridAsJson} />*/}
       {/*<Route path="/superGridFromJsonWithLazy" render={gridAsJsonWithLoading} />*/}
       {/*<Route path="/LanguagesList" component={LanguagesList} />*/}
-      <Route path="/BasicTwoCol" component={basicTwoCol} />
+      <Route path="/BasicTwoCol" render={basicTwoCol}/>
       {/*<Route path="/BasicTwoColOriginal" component={BasicTwoColOriginal} />*/}
       {/*<Route path="/MediaControlCard" component={MediaControlCard} />*/}
       {/*<Route path="/RaiseStateSample" component={NestSample} />*/}

@@ -1,9 +1,5 @@
 import { Grid } from '@material-ui/core'
-import {
-  isComplexType,
-  processType,
-  transformPropsToReactAsync
-} from './MappingConverter'
+import { isComplexType, processType, transformPropsToReactAsync } from './MappingConverter'
 
 const nestedElements = {
   type: {
