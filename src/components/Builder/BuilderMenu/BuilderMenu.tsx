@@ -1,80 +1,95 @@
 import { Dialog, DialogTitle, TextField } from '@material-ui/core'
-import React from 'react'
-import { InlineStyleAware } from '../../../common/Builder'
+import * as React from 'react'
+import { Subject } from 'rxjs'
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators'
+import { isEqual } from 'underscore'
 
-export interface ISimpleDialog<T> {
-    onClose: (value?: string) => void,
-    selectedValue?: string,
-    open: boolean,
-    onStyleChangeHandler?: (styleJson: string) => void
-    buildElementProps: T,
-    onPropsUpdate: (props: T) => void
+const propsToJSONReplacer = (k, v) =>
+  typeof v === 'function' || k === 'subject$' ? null : v
+
+interface ISimpleDialogProps {
+  onClose: (any?: any) => any
+  onPropsUpdate: (any?: any) => any
+  open: boolean,
+  buildElementProps: any
 }
 
-export interface ISimpleDialogState {
-    elementProps: string
+interface ISimpleDialogState {
+  elementProps: string
+  subject$: Subject<any>
 }
 
-class SimpleDialog<T extends InlineStyleAware> extends React.Component<ISimpleDialog<T>, ISimpleDialogState> {
+class SimpleDialog extends React.PureComponent<ISimpleDialogProps, ISimpleDialogState> {
+  state = {
+    elementProps: '',
+    subject$: new Subject()
+  }
 
-    state = {
-        elementProps: ''
+  closeHandler = () => {
+    this.props.onClose()
+  }
+
+  propsInputHandler = event => {
+    const value = event.target.value
+    try {
+      const props = JSON.parse(value)
+      this.state.subject$.next(props)
+    } catch (e) {
+      console.error(e)
     }
+    this.setState({ elementProps: value })
+  }
 
-    componentDidMount() {
-        console.log(this.props)
-        const { buildElementProps } = this.props
-        if (buildElementProps) {
-            this.setState({ elementProps: JSON.stringify(buildElementProps, (k, v) => k !== 'children' ? v : null, 2) })
-        }
+  setElementProps = () => {
+    const { buildElementProps } = this.props
+    if (buildElementProps) {
+      console.log('[BUILDER_DIALOG_SET_ELEMENT_PROPS]', buildElementProps)
+      this.setState({
+        elementProps: JSON.stringify(buildElementProps, propsToJSONReplacer, 2)
+      })
     }
+  }
 
-    closeHandler = () => {
-        console.log('closeHandler')
-        this.props.onClose(this.props.selectedValue)
+  componentDidUpdate(prevProps) {
+    const { open, buildElementProps } = this.props
+    if (open && prevProps.buildElementProps !== buildElementProps) {
+      this.setElementProps()
     }
+  }
 
-    styleInputHandler = event => {
-        if (this.props.onStyleChangeHandler) {
-            this.props.onStyleChangeHandler(event.target.value)
-        }
-    }
+  componentDidMount() {
+    this.state.subject$
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged((x, y) => isEqual(x, y))
+      )
+      .subscribe(p => this.props.onPropsUpdate(p))
+  }
 
-    propsInputHandler = event => {
-        const value = event.target.value
-        try {
-            const props = JSON.parse(value)
-            console.log(props)
-            this.props.onPropsUpdate(props)
-        } catch (e) {
-            console.error(e)
-        }
-        this.setState({ elementProps: value })
-    }
+  render() {
+    const { open } = this.props
 
-    render() {
-        console.log(this.props)
-        const { onClose, selectedValue, open, onStyleChangeHandler, buildElementProps, ...other } = this.props
-
-        let styleValue = JSON.stringify({})
-        if (buildElementProps && buildElementProps.style) {
-            styleValue = JSON.stringify(buildElementProps.style, null, 2)
-            // propsValue = JSON.stringify(buildElementProps, null, 2)
-        }
-
-        return (
-            <Dialog onClose={this.closeHandler} aria-labelledby="simple-dialog-title" open={open} {...other}>
-                <DialogTitle id="simple-dialog-title">Awesome builder menu</DialogTitle>
-                <div>
-                    { onStyleChangeHandler &&
-                        <TextField label="CSS JSON" onChange={this.styleInputHandler} multiline fullWidth rows={4} rowsMax={10} value={styleValue}/>
-                    }
-                    <TextField label="PROPS JSON" onChange={this.propsInputHandler} multiline fullWidth rows={20} rowsMax={40} value={this.state.elementProps}/>
-                </div>
-            </Dialog>
-        )
-    }
+    return (
+      <Dialog
+        onClose={this.closeHandler}
+        onEnter={this.setElementProps}
+        aria-labelledby="simple-dialog-title"
+        open={open}>
+        <DialogTitle id="simple-dialog-title">Awesome builder menu</DialogTitle>
+        <div>
+          <TextField
+            label="PROPS JSON"
+            onChange={this.propsInputHandler}
+            multiline
+            fullWidth
+            rows={20}
+            rowsMax={40}
+            value={this.state.elementProps}
+          />
+        </div>
+      </Dialog>
+    )
+  }
 }
 
-// export default withStyles(styles)(BuilderMenu)
 export default SimpleDialog

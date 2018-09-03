@@ -12,7 +12,7 @@
     "forin": true,
     "indent": [true, "spaces", 2],
     "label-position": true,
-    "max-line-length": [true, 180],
+    "max-line-length": [true, 120],
     "member-access": false,
     "member-ordering": [
       true,
@@ -103,7 +103,7 @@
     "forin": true,
     "indent": [true, "spaces", 2],
     "label-position": true,
-    "max-line-length": [true, 180],
+    "max-line-length": [true, 120],
     "member-access": false,
     "member-ordering": [
       true,
@@ -186,7 +186,7 @@
     "no-invalid-this": [true],
     "no-magic-numbers": false,
     "ban-types": [true, ["Object", "Use {} instead."]],
-    "no-submodule-imports": [true, "app", "uuid/v4", "@fortawesome", "lodash", "react-toastify", "@material-ui"],
+    "no-submodule-imports": [true, "app", "uuid/v4", "@fortawesome", "lodash", "react-toastify", "@material-ui", "rxjs"],
 
     "ter-arrow-body-style": [true],
     "ter-no-irregular-whitespace": [true],
@@ -207,8 +207,9 @@
     "jsx-boolean-value": [true, "never"],
     "jsx-no-multiline-js": false,
     "jsx-alignment": false,
-    "no-object-literal-type-assertion": false
-
+    "no-object-literal-type-assertion": false,
+    "prefer-object-spread": false,
+    "interface-over-type-literal": false
   },
   "rulesDirectory": []
 }

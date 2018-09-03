@@ -1,26 +1,57 @@
-import React, { Component } from 'react'
-import { AppBar, Button, Toolbar } from '@material-ui/core'
-import { Link } from 'react-router-dom'
+import * as React from 'react'
+import { withStyles } from '@material-ui/core/styles'
+import AppBar from '@material-ui/core/AppBar'
+import { Tab, Tabs } from '@material-ui/core'
+import { NavLink } from 'react-router-dom'
 
-class NavigationBar extends Component<{}> {
-    render() {
-        return (
-            <AppBar position="static" color="default">
-                <Toolbar>
-                    <Link to="/superCard">
-                        <Button>
-                            Super Card
-                        </Button>
-                    </Link>
-                    <Link to="/superCube">
-                        <Button>
-                            Super Cube
-                        </Button>
-                    </Link>
-                </Toolbar>
-            </AppBar>
-        )
-    }
+const styles = {
+  root: {
+    flexGrow: 1
+  }
 }
 
-export default NavigationBar
+const navigationBar = props => {
+  const { classes } = props
+  return (
+    <div className={classes.root}>
+      <AppBar position="static" color="default">
+        <Tabs value={'hello'}>
+          <NavLink to="/BasicTwoCol">
+            <Tab
+              label="superGridFromJson"
+            />
+          </NavLink>
+
+          {/*<Tab*/}
+          {/*label="superGridFromJsonWithLazy"*/}
+          {/*component={Link}*/}
+          {/*to="/superGridFromJsonWithLazy"*/}
+          {/*/>*/}
+          {/*<Tab label="Languages List" component={Link} to="/LanguagesList" />*/}
+          {/*<Tab label="Basic two col" component={Link} to="/BasicTwoCol" />*/}
+          {/*<Tab*/}
+          {/*label="BasicTwoColOriginal"*/}
+          {/*component={Link}*/}
+          {/*to="/BasicTwoColOriginal"*/}
+          {/*/>*/}
+          {/*<Tab*/}
+          {/*label="MediaControlCard"*/}
+          {/*component={Link}*/}
+          {/*to="/MediaControlCard"*/}
+          {/*/>*/}
+          {/*<Tab*/}
+          {/*label="RaiseStateSample"*/}
+          {/*component={Link}*/}
+          {/*to="/RaiseStateSample"*/}
+          {/*/>*/}
+        </Tabs>
+      </AppBar>
+    </div>
+  )
+}
+
+// navigationBar.propTypes = {
+//   classes: PropTypes.object.isRequired
+// }
+
+export default withStyles(styles)(navigationBar)
