@@ -2,8 +2,9 @@ import { getObjectFromModule } from '../ObjectLoader/ObjectLoader'
 import { componentFromProp, defaultProps, mapPropsStream, pure } from 'recompose'
 import { from, Subject } from 'rxjs'
 import { switchMap } from 'rxjs/operators'
-import withBuilderExtension, { IBuilderProps } from '../../HOC/withBuilderExtension'
+import withBuilderExtension from '../../HOC/withBuilderExtension'
 import * as React from 'react'
+import { IBuilderProps } from '../../HOC/withBuilderExtension.model'
 
 export function isComplexType(type) {
   return !!type && !!type.module
